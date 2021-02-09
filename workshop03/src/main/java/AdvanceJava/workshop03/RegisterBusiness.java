@@ -11,8 +11,12 @@ public class RegisterBusiness {
         if (speaker.getFirstName() != null && !speaker.getFirstName().trim().equals("")) {
             if (speaker.getLastName() != null && !speaker.getLastName().trim().equals("")) {
                 if (speaker.getEmail() != null && !speaker.getEmail().trim().equals("")) {
-                    String emailDomain = speaker.getEmail().split("@")[1];
-                    if (Arrays.stream(domains).filter(it -> it.equals(emailDomain)).count() == 1) {
+                	
+                    //String emailDomain = speaker.getEmail().split("@")[1];
+                	int atIndex = speaker.getEmail().lastIndexOf("@");
+                	String emailDomain = speaker.getEmail().substring(atIndex+1);
+                    
+                    if (Arrays.stream(domains).filter(it -> it.equals(emailDomain)).count() == 1 && atIndex > 0) {
                         int exp = speaker.getExp();
                         if (exp <= 1) {
                             speaker.setRegistrationFee(500);
