@@ -75,24 +75,6 @@ public class RegisterBusinessTest {
         // Assert
         assertEquals("Speaker doesn't meet our standard rules.", exception.getMessage());
     }
-    
-    @Test
-    public void register_with_no_at_in_domain_of_email_should_throw_SpeakerDoesntMeetRequirementsException() {
-        // Arrange
-        RegisterBusiness registerBusiness = new RegisterBusiness();
-        Speaker newSpeaker = new Speaker();
-        newSpeaker.setFirstName("Demo");
-        newSpeaker.setLastName("Demo last");
-        newSpeaker.setEmail("gmail.com");
-
-        // Act
-        Exception exception = assertThrows(SpeakerDoesntMeetRequirementsException.class, () -> {
-            registerBusiness.register(null, newSpeaker);
-        });
-
-        // Assert
-        assertEquals("Speaker doesn't meet our standard rules.", exception.getMessage());
-    }
 
     @Test
     public void can_not_save_speaker_throw_SaveSpeakerException() {
@@ -113,7 +95,6 @@ public class RegisterBusinessTest {
     }
 
     //=============== Success cases
-
     @Test
     public void register_success() {
         // Arrange
@@ -122,31 +103,6 @@ public class RegisterBusinessTest {
         newSpeaker.setFirstName("Demo");
         newSpeaker.setLastName("Demo last");
         newSpeaker.setEmail("demo@gmail.com");
-
-        // Stub dependency
-        SpeakerRepository stub = new SpeakerRepository() {
-            @Override
-            public Integer saveSpeaker(Speaker speaker) {
-                return new Integer(100);
-            }
-        };
-
-        // Act
-        Integer speakerId = registerBusiness.register(stub, newSpeaker);
-
-        // Assert
-        assertNotNull(speakerId);
-        assertEquals(100, speakerId);
-    }
-    
-    @Test
-    public void register_success_with_many_at_in_email() {
-        // Arrange
-        RegisterBusiness registerBusiness = new RegisterBusiness();
-        Speaker newSpeaker = new Speaker();
-        newSpeaker.setFirstName("Demo");
-        newSpeaker.setLastName("Demo last");
-        newSpeaker.setEmail("demo@demo@gmail.com");
 
         // Stub dependency
         SpeakerRepository stub = new SpeakerRepository() {
